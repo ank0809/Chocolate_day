@@ -106,10 +106,37 @@
     }
 
     #typedText {
-      min-height: 120px;
+      min-height: 140px;
       margin-top: 15px;
       font-size: 1.05em;
       white-space: pre-line;
+    }
+
+    /* ❤️ Heartbeat + glow */
+    .typing {
+      animation: heartbeat 1.6s infinite, glow 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px rgba(255,77,109,0.4); }
+      50% { text-shadow: 0 0 15px rgba(255,77,109,0.9); }
+      100% { text-shadow: 0 0 5px rgba(255,77,109,0.4); }
+    }
+
+    /* 🍫 Line fade animation */
+    .line {
+      opacity: 0;
+      animation: fadeIn 1.2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .close {
@@ -150,8 +177,6 @@
 </audio>
 
 <div class="card">
-
-  <!-- Your GitHub Cartoon Image -->
   <img 
     src="https://raw.githubusercontent.com/ank0809/Rose-day/d08980a5a020c70733f7137359444a920d389bcb/images%20(1).jpeg"
     alt="Cute Cartoon"
@@ -183,15 +208,17 @@
   const bgMusic = document.getElementById("bgMusic");
   const musicBtn = document.getElementById("musicBtn");
 
-  const message =
-`You are sweeter than any chocolate 🍫❤️
-
-You melt my worries,
-you color my days,
-and you make my life beautiful.
-
-Chocolate is for today,
-but my love for you is forever 💖`;
+  const lines = [
+    "I wanna be your sweetness, not just today, but every day 🍫🤍",
+    "",
+    "Just like chocolate melts stress away,",
+    "I wanna melt all your worries.",
+    "",
+    "Let me be your sweet place,",
+    "where your heart feels at home.",
+    "",
+    "I give you my heart… always 💖"
+  ];
 
   document.body.addEventListener("click", () => {
     bgMusic.play().catch(()=>{});
@@ -217,13 +244,23 @@ but my love for you is forever 💖`;
   };
 
   function startTyping() {
-    typedText.textContent = "";
-    let i = 0;
-    const interval = setInterval(() => {
-      typedText.textContent += message[i];
-      i++;
-      if (i >= message.length) clearInterval(interval);
-    }, 40);
+    typedText.innerHTML = "";
+    typedText.classList.add("typing");
+
+    let index = 0;
+    function showLine() {
+      if (index >= lines.length) {
+        typedText.classList.remove("typing");
+        return;
+      }
+      const div = document.createElement("div");
+      div.className = "line";
+      div.textContent = lines[index];
+      typedText.appendChild(div);
+      index++;
+      setTimeout(showLine, 700);
+    }
+    showLine();
   }
 
   setInterval(() => {
