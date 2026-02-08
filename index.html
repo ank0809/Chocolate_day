@@ -37,6 +37,17 @@
       to { transform: scale(1); opacity: 1; }
     }
 
+    .dudu-img {
+      width: 160px;
+      margin-bottom: 15px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
     h1 {
       font-family: 'Sacramento', cursive;
       font-size: 3em;
@@ -71,7 +82,6 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.6);
-      display: flex;
       justify-content: center;
       align-items: center;
       z-index: 10;
@@ -106,7 +116,6 @@
       background: #ff4d6d;
     }
 
-    /* Floating chocolates */
     .choco {
       position: absolute;
       font-size: 24px;
@@ -119,7 +128,6 @@
       to { transform: translateY(-10vh); opacity: 0; }
     }
 
-    /* Music button */
     .music-btn {
       position: fixed;
       bottom: 15px;
@@ -141,6 +149,12 @@
 </audio>
 
 <div class="card">
+  <!-- Dudu Bubu Image -->
+  <img 
+    src="https://raw.githubusercontent.com/ank0809/assets/main/dudu-bubu-kiss.png"
+    alt="Dudu Bubu Kissing"
+    class="dudu-img">
+
   <h1>Happy Chocolate Day 🍫❤️</h1>
   <p>
     Just like chocolate,<br>
@@ -167,7 +181,7 @@
   const bgMusic = document.getElementById("bgMusic");
   const musicBtn = document.getElementById("musicBtn");
 
-  const message = 
+  const message =
 `You are sweeter than any chocolate 🍫❤️
 
 You melt my worries,
@@ -177,7 +191,6 @@ and you make my life beautiful.
 Chocolate is for today,
 but my love for you is forever 💖`;
 
-  // Start music on first click
   document.body.addEventListener("click", () => {
     bgMusic.play().catch(()=>{});
   }, { once: true });
@@ -211,7 +224,6 @@ but my love for you is forever 💖`;
     }, 40);
   }
 
-  // Floating chocolates
   setInterval(() => {
     const c = document.createElement("div");
     c.className = "choco";
